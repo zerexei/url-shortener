@@ -1,13 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <title>URL Shortener</title>
+
+    <style type="text/tailwindcss">
+      .button {
+        @apply py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-teal-200 hover:bg-teal-100 hover:text-teal-700 focus:z-10 focus:ring-4 focus:ring-teal-100 cursor-pointer;
+      }
+
+      .input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block h-10 p-2.5 focus:outline-teal-400 w-full;
+      }
+
+      .bug {
+        border: 1px solid red !important;
+      }
+    </style>
   </head>
+
   <body>
-    <div id="root"></div>
+    <div id="root" class="max-w-screen-sm mx-auto py-12 p-4"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
