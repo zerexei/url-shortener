@@ -1,8 +1,16 @@
-from flask import Blueprint, request
+from flask import Blueprint, jsonify, redirect, request
 from flask_cors import cross_origin
 from supabase_wrapper import Supabase
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 links = Blueprint("links", __name__)
+
+limiter = Limiter(
+    get_remote_address,
+    default_limits="1/second; 5/minute; 50/hour; 200/day",
+    storage_uri="memory://",
+)
 
 supabase = Supabase()
 
@@ -11,6 +19,17 @@ supabase = Supabase()
 @cross_origin()
 def index():
     return supabase.getLinks()
+
+
+@links.get("/links/<string:short_code>")
+@cross_origin()
+def show(short_code):
+    data = supabase.getLink(short_code)
+    if data:
+        original_url = data[0]["original_url"]
+        return redirect(original_url)
+    else:
+        return jsonify({"success": False, "message": "Link not found or expired"}), 404
 
 
 @links.post("/links")

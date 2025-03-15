@@ -1,6 +1,6 @@
-from datetime import datetime, timedelta
 import os
 import uuid
+from datetime import datetime, timedelta
 from supabase import create_client, Client
 
 url: str = os.environ.get("SUPABASE_URL")
@@ -14,10 +14,23 @@ class Supabase:
         return supabase
 
     def getLinks(self):
-        session = supabase.auth.get_session()
-        print(session)
-        
+        # session = supabase.auth.get_session()
+        # print(session)
+
         response = supabase.table("urls").select("*").execute()
+        return response.data
+
+    def getLink(self, short_code):
+        current_time = datetime.now().isoformat()
+        response = (
+            supabase.table("urls")
+            .select("*")
+            .eq("short_code", short_code)
+            .gte("expires_at", current_time)
+            .limit(1)
+            .execute()
+        )
+
         return response.data
 
     def createLink(self, url):

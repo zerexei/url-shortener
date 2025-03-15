@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 supabase = "*"
 flask-cors = "*"
+flask-limiter = "*"
 
 [dev-packages]
 

@@ -32,17 +32,21 @@ const ShortenLink = ({ link, updateTotalClicks }: { link: Link, updateTotalClick
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
   }
 
+  const parsedShortCode = (link: Link) => {
+    return `http://127.0.0.1:5000/links/${link.short_code}`;
+  }
+
   return (
-    <button onClick={() => updateTotalClicks(link)} className="cursor-pointer bg-teal-200 p-2 rounded-md  hover:bg-teal-400 w-full space-y-2">
+    <a href={parsedShortCode(link)} target="_blank" onClick={() => updateTotalClicks(link)} className="cursor-pointer bg-teal-200 p-2 rounded-md  hover:bg-teal-400 w-full space-y-2">
       <p className="text-left">
-        https://zerexei.dev/{link.short_code} ({link.original_url})
+        {parsedShortCode(link)} ({link.original_url})
       </p>
 
       <div className="flex items-center justify-between">
         <p>expires at: {parsedDate(link.expires_at)}</p>
         <p className="border rounded px-2 text-xs font-semibold border-teal-600 text-teal-700">{link.total_clicks}</p>
       </div>
-    </button>
+    </a>
   )
 
 }
