@@ -21,3 +21,11 @@ Database: Supabase for persistence; Redis for caching.
 
 - Add QR code generation for shortened URLs.
 - Deploy it using Docker.
+
+```bash
+cd client
+npm run dev
+
+cd server
+pipenv run app.py
+```
