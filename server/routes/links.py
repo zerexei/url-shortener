@@ -15,12 +15,14 @@ limiter = Limiter(
 supabase = Supabase()
 
 
+# TODO: cache links
 @links.get("/links")
 @cross_origin()
 def index():
     return supabase.getLinks()
 
 
+# TODO: cache link
 @links.get("/links/<string:short_code>")
 @cross_origin()
 def show(short_code):
@@ -32,6 +34,7 @@ def show(short_code):
         return jsonify({"success": False, "message": "Link not found or expired"}), 404
 
 
+# TODO: update cached links
 @links.post("/links")
 @cross_origin()
 def store():
@@ -44,6 +47,7 @@ def store():
     return supabase.createLink(url)
 
 
+# TODO: update cached links
 @links.patch("/links")
 @cross_origin()
 def update():
